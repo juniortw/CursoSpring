@@ -1,4 +1,4 @@
-package br.com.estudos.EstudoSpring;
+package br.com.estudos.estudospring;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

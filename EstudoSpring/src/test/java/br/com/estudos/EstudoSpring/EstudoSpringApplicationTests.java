@@ -1,4 +1,4 @@
-package br.com.estudos.EstudoSpring;
+package br.com.estudos.estudospring;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

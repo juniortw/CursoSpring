@@ -13,6 +13,7 @@ import br.com.estudos.estudospring.bean.Cidade;
 import br.com.estudos.estudospring.bean.Cliente;
 import br.com.estudos.estudospring.bean.Endereco;
 import br.com.estudos.estudospring.bean.Estado;
+import br.com.estudos.estudospring.bean.ItemPedido;
 import br.com.estudos.estudospring.bean.Pagamento;
 import br.com.estudos.estudospring.bean.PagamentoComBoleto;
 import br.com.estudos.estudospring.bean.PagamentoComCartao;
@@ -25,6 +26,7 @@ import br.com.estudos.estudospring.repositories.CidadeRepository;
 import br.com.estudos.estudospring.repositories.ClienteRepository;
 import br.com.estudos.estudospring.repositories.EnderecoRepository;
 import br.com.estudos.estudospring.repositories.EstadoRepository;
+import br.com.estudos.estudospring.repositories.ItemPedidoRepository;
 import br.com.estudos.estudospring.repositories.PagamentoRepository;
 import br.com.estudos.estudospring.repositories.PedidoRepository;
 import br.com.estudos.estudospring.repositories.ProdutoRepository;
@@ -33,28 +35,31 @@ import br.com.estudos.estudospring.repositories.ProdutoRepository;
 public class EstudoSpringApplication implements CommandLineRunner {
 
 	@Autowired
-	CategoriaRepository catRepository;
+	private CategoriaRepository catRepository;
 
 	@Autowired
-	ProdutoRepository prodRepository;
+	private ProdutoRepository prodRepository;
 
 	@Autowired
-	CidadeRepository cidadeRepository;
+	private CidadeRepository cidadeRepository;
 
 	@Autowired
-	EstadoRepository estadoRepository;
+	private EstadoRepository estadoRepository;
 	
 	@Autowired
-	ClienteRepository clienteRepository;
+	private ClienteRepository clienteRepository;
 	
 	@Autowired
-	EnderecoRepository enderecoRepository;
+	private EnderecoRepository enderecoRepository;
 	
 	@Autowired
-	PedidoRepository pedidoRepository;
+	private PedidoRepository pedidoRepository;
 
 	@Autowired
-	PagamentoRepository pagamentoRepository;
+	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(EstudoSpringApplication.class, args);
@@ -119,30 +124,18 @@ public class EstudoSpringApplication implements CommandLineRunner {
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
 		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);		
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);		
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
 		
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
 		
+		p1.getItens().addAll(Arrays.asList(ip1));	
+		p2.getItens().addAll(Arrays.asList(ip3));	
+		p3.getItens().addAll(Arrays.asList(ip2));	
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2,ip3));
 	}
 
 }
